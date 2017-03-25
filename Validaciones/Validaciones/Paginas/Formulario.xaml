@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Validaciones.Paginas.Formulario"
+             xmlns:local="clr-namespace:Validaciones.Behaviors">
+  <StackLayout BackgroundColor="White">
+    <Label HorizontalTextAlignment="Center" Text="Formulario" FontAttributes="Bold" TextColor="Blue" />
+
+    <Label Text="Nombre: " TextColor="Blue"/>
+    <Entry x:Name="txtNombre" Placeholder="Ingresa tu nombre" TextColor="Black"/>
+  
+    <Label Text="Telefono: " TextColor="Blue"/>
+    <Entry x:Name="txtTelefono" Placeholder="Ingresa tu telefono (máximo 10 dígitos)" TextColor="Black" Keyboard="Numeric" >
+      <Entry.Behaviors>  
+        <local:MaxLengthValidatorBehavior  MaxLength="10"/>
+        <local:NumeroValidatorBehavior/>
+      </Entry.Behaviors>  
+    </Entry>  
+
+    <Label Text="Fecha de nacimiento: " TextColor="Blue"/>
+    <DatePicker x:Name="dtpFechaNacimiento">
+      <DatePicker.Behaviors>
+        <local:FechaValidatorBehavior/>  
+      </DatePicker.Behaviors>
+    </DatePicker>
+    
+    <Label Text="Correo: " TextColor="Blue"/>
+    <Entry x:Name="txtCorreo" Placeholder="Ingresa tu correo" TextColor="Black" >
+      <Entry.Behaviors>  
+        <local:EmailValidatorBehavior/>
+      </Entry.Behaviors>  
+    </Entry>  
+
+    <Label Text="Password: " TextColor="Blue"/>
+    <Entry x:Name="txtPassword" IsPassword="True" Placeholder="Ingresa tu contraseña">
+      <Entry.Behaviors>  
+        <local:PasswordValidatorBehavior />  
+        <local:CompareTextsValidatorBehavior BindingContext="{x:Reference txtConfirmaPassword}" Text="{Binding Text}" Ent="{x:Reference txtConfirmaPassword}"/>
+      </Entry.Behaviors>
+    </Entry>
+  
+    <Label Text="Repite tu password: " TextColor="Blue"/>
+    <Entry x:Name="txtConfirmaPassword" IsPassword="True" Placeholder="Repite tu contraseña">
+      <Entry.Behaviors>
+        <local:PasswordValidatorBehavior />  
+        <local:CompareTextsValidatorBehavior BindingContext="{x:Reference txtPassword}" Text="{Binding Text}"/>
+      </Entry.Behaviors>
+    </Entry>
+
+    <Label Text="Fecha de inicio:" TextColor="Blue"/>
+    <DatePicker x:Name="dtpFechaInicio">
+      <DatePicker.Behaviors>
+        <local:CompareDatesValidatorBehavior BindingContext="{x:Reference dtpFechaFin}" Date="{Binding Date}" Order="1" DatePick="{x:Reference dtpFechaFin}" />
+      </DatePicker.Behaviors>
+    </DatePicker>
+
+    <Label Text="Fecha de fin: " TextColor="Blue"/>
+    <DatePicker x:Name="dtpFechaFin">
+      <DatePicker.Behaviors>
+        <local:CompareDatesValidatorBehavior BindingContext="{x:Reference dtpFechaInicio}" Date="{Binding Date}" Order="2" DatePick="{x:Reference dtpFechaInicio}" />
+      </DatePicker.Behaviors>
+    </DatePicker>
+  </StackLayout>
+</ContentPage>
