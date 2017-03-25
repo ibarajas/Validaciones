@@ -15,6 +15,7 @@ namespace Validaciones.Behaviors
         protected override void OnAttachedTo(Entry entry)
         {
             entry.Unfocused += Unfocused;
+            base.OnAttachedTo(entry);
         }
 
         // Devuelve una cadena de máximo una longitud permitida
@@ -27,6 +28,7 @@ namespace Validaciones.Behaviors
         protected override void OnDetachingFrom(Entry entry)
         {
             entry.Unfocused -= Unfocused;
+            base.OnDetachingFrom(entry);
         }
     }
 }
